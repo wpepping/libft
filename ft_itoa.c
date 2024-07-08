@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 19:19:37 by wpepping          #+#    #+#             */
-/*   Updated: 2024/04/24 10:55:43 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:49:30 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	nr_of_chars(int n)
 	return (i);
 }
 
-static void	recursion(int n, char *result, int pos)
+static void	recursion(long n, char *result, int pos)
 {
 	if (n > 9)
 	{
@@ -49,22 +49,18 @@ char	*ft_itoa(int n)
 {
 	char	*result;
 	int		len;
+	long	nn;
 
 	len = nr_of_chars(n);
 	result = malloc((len + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
-	if (n < 0)
+	nn = n;
+	if (nn < 0) {
 		result[0] = '-';
-	if (n == -2147483648)
-	{
-		result[1] = '2';
-		recursion(147483648, result, len - 1);
+		nn = 0 - nn;
 	}
-	else if (n < 0)
-		recursion(0 - n, result, len - 1);
-	else
-		recursion(n, result, len - 1);
+	recursion(nn, result, len - 1);
 	result[len] = '\0';
 	return (result);
 }
